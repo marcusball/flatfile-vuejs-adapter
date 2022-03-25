@@ -1,11 +1,16 @@
 {
-  "name": "@flatfile/vuejs",
-  "version": "3.0.0",
+  "name": "@marcusball/flatfile-button-vue",
+  "version": "1.0.0",
   "homepage": "https://flatfile.io/",
   "description": "Vue.js flatfile adapter",
   "author": {
-    "name": "Mark Pieszak"
+    "name": "Marcus Ball"
   },
+  "contributors": [
+    {
+      "name": "Mark Pieszak"
+    }
+  ],
   "files": [
     "dist/*"
   ],
@@ -13,10 +18,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/FlatFilers/vuejs-adapter.git"
+    "url": "https://github.com/marcusball/flatfile-vuejs-adapter.git"
   },
   "bugs": {
-    "url": "https://github.com/FlatFilers/vuejs-adapter/issues"
+    "url": "https://github.com/marcusball/flatfile-vuejs-adapter/issues"
   },
   "keywords": [
     "flatfile",
