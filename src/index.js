@@ -1,1 +1,1 @@
-export { default as FlatfileButton } from './components/FlatfileButton'
+export { default as FlatfileButton } from '@/components/FlatfileButton.vue'
