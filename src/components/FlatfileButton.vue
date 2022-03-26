@@ -71,17 +71,7 @@ export default {
       tempImporter.on("launch", this.onLaunch);
       tempImporter.on("complete", this.onComplete);
       tempImporter.on("error", this.onError);
-      tempImporter.on("upload", this.onUpload);
       tempImporter.on("close", this.onClose);
-      tempImporter.on("connected", (data) => this.$emit("connected", data));
-      tempImporter.on("connecting", (data) => this.$emit("connecting", data));
-      tempImporter.on("disconnected", (data) =>
-        this.$emit("disconnected", data)
-      );
-      tempImporter.on("reconnected", (data) => this.$emit("reconnected", data));
-      tempImporter.on("reconnecting", (data) =>
-        this.$emit("reconnecting", data)
-      );
 
       this.flatfileImporter = tempImporter;
       this.loaded = true;
