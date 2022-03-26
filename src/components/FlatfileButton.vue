@@ -1,9 +1,7 @@
 <template>
-  <div>
   <button @click="launch">
     <slot></slot>
   </button>
-  </div>
 </template>
 
 <script>
@@ -36,6 +34,8 @@ export default {
      * @see https://flatfile.com/docs/sdk/#complete
      */
     "complete",
+    "upload",
+    "close",
   ],
   props: {
     token: {
@@ -47,8 +47,6 @@ export default {
     },
     mountUrl: String,
     apiUrl: String,
-    onUpload: Function,
-    onClose: Function,
   },
   data: () => ({
     flatfileImporter: null,
@@ -73,13 +71,17 @@ export default {
       tempImporter.on("launch", this.onLaunch);
       tempImporter.on("complete", this.onComplete);
       tempImporter.on("error", this.onError);
-
-      if (typeof this.onUpload === "function") {
-        tempImporter.on("upload", this.onUpload);
-      }
-      if (typeof this.onClose === "function") {
-        tempImporter.on("close", this.onClose);
-      }
+      tempImporter.on("upload", this.onUpload);
+      tempImporter.on("close", this.onClose);
+      tempImporter.on("connected", (data) => this.$emit("connected", data));
+      tempImporter.on("connecting", (data) => this.$emit("connecting", data));
+      tempImporter.on("disconnected", (data) =>
+        this.$emit("disconnected", data)
+      );
+      tempImporter.on("reconnected", (data) => this.$emit("reconnected", data));
+      tempImporter.on("reconnecting", (data) =>
+        this.$emit("reconnecting", data)
+      );
 
       this.flatfileImporter = tempImporter;
       this.loaded = true;
@@ -110,6 +112,12 @@ export default {
     },
     onComplete: function (payload) {
       this.$emit("complete", payload);
+    },
+    onUpload: function (data) {
+      this.$emit("upload", data);
+    },
+    onClose: function (data) {
+      this.$emit("close", data);
     },
   },
 };
