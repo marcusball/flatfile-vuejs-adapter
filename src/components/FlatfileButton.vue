@@ -1,8 +1,8 @@
 <template>
   <div>
-    <button @click="launch">
-      <slot></slot>
-    </button>
+  <button @click="launch">
+    <slot></slot>
+  </button>
   </div>
 </template>
 
