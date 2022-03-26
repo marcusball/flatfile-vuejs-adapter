@@ -34,7 +34,10 @@ export default {
      * @see https://flatfile.com/docs/sdk/#complete
      */
     "complete",
-    "upload",
+
+    /**
+     *
+     */
     "close",
   ],
   props: {
@@ -89,9 +92,11 @@ export default {
     },
     onInit: function (batchId) {
       this.$emit("init", batchId);
+      this.flatfileImporter.on("init", this.onInit);
     },
     onLaunch: function (batchId) {
       this.$emit("launch", batchId);
+      this.flatfileImporter.on("launch", this.onLaunch);
     },
     onError: function (error) {
       this.$emit("error", error);
@@ -99,11 +104,9 @@ export default {
     onComplete: function (payload) {
       this.$emit("complete", payload);
     },
-    onUpload: function (data) {
-      this.$emit("upload", data);
-    },
-    onClose: function (data) {
-      this.$emit("close", data);
+    onClose: function () {
+      this.$emit("close");
+      this.flatfileImporter.on("close", this.onClose);
     },
   },
 };
