@@ -89,11 +89,7 @@ export default {
     launch: function () {
       this.validateInputs();
 
-      this.flatfileImporter.launch().catch((e) => {
-        if (typeof this.onError === "function") {
-          this.onError(e);
-        }
-      });
+      this.flatfileImporter.launch().catch(this.onError);
     },
     validateInputs: function () {
       if (!this.token) {
