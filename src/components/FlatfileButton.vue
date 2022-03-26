@@ -36,7 +36,7 @@ export default {
     "complete",
 
     /**
-     *
+     * Emitted when the upload window is closed (but only the first time?)
      */
     "close",
   ],
@@ -92,11 +92,9 @@ export default {
     },
     onInit: function (batchId) {
       this.$emit("init", batchId);
-      this.flatfileImporter.on("init", this.onInit);
     },
     onLaunch: function (batchId) {
       this.$emit("launch", batchId);
-      this.flatfileImporter.on("launch", this.onLaunch);
     },
     onError: function (error) {
       this.$emit("error", error);
@@ -106,7 +104,6 @@ export default {
     },
     onClose: function () {
       this.$emit("close");
-      this.flatfileImporter.on("close", this.onClose);
     },
   },
 };
