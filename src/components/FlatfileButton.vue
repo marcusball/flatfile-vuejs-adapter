@@ -1,5 +1,5 @@
 <template>
-  <button @click="launch">
+  <button @click="launchImporter">
     <slot></slot>
   </button>
 </template>
@@ -57,10 +57,10 @@ export default {
     importerLoaded: true,
   }),
   mounted() {
-    this.init();
+    this.initImporter();
   },
   methods: {
-    init: function () {
+    initImporter: function () {
       if (this.flatfileImporter) {
         return;
       }
@@ -80,13 +80,13 @@ export default {
       this.loaded = true;
     },
 
-    launch: function () {
+    launchImporter: function () {
       this.validateInputs();
 
       this.flatfileImporter.launch().catch(this.onError);
     },
 
-    close: function () {
+    closeImporter: function () {
       this.flatfileImporter.close();
       this.flatfileImporter = null;
       this.importerLoaded = false;
