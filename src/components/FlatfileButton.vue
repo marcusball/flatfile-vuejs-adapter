@@ -57,10 +57,10 @@ export default {
     importerLoaded: true,
   }),
   mounted() {
-    this.loadImporter();
+    this.init();
   },
   methods: {
-    loadImporter: function () {
+    init: function () {
       if (this.flatfileImporter) {
         return;
       }
@@ -79,11 +79,20 @@ export default {
       this.flatfileImporter = tempImporter;
       this.loaded = true;
     },
+
     launch: function () {
       this.validateInputs();
 
       this.flatfileImporter.launch().catch(this.onError);
     },
+
+    close: function () {
+      this.flatfileImporter.close();
+      this.flatfileImporter = null;
+      this.importerLoaded = false;
+      this.loaded = false;
+    },
+
     validateInputs: function () {
       if (!this.token) {
         console.error("[Error] Flatfile VueJS Adapter - token not provided!");
