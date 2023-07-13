@@ -1,10 +1,73 @@
-# Flatfile Vue.js Component - @flatfile/vuejs
+# Flatfile Vue.js Component [Vue 3 Fork]
 
-[![npm](https://img.shields.io/npm/v/@flatfile/vuejs.svg?label=npm%20version&color=2EBF6A&style=for-the-badge)](https://www.npmjs.com/@flatfile/vuejs)
-[![Minzipped Size](https://img.shields.io/bundlephobia/minzip/@flatfile/vuejs?color=794cff&style=for-the-badge)](https://bundlephobia.com/result?p=@flatfile/vuejs)
-[![NPM Downloads](https://img.shields.io/npm/dw/@flatfile/vuejs.svg?color=8c66ff&style=for-the-badge)](https://www.npmjs.com/@flatfile/vuejs)
+[![npm](https://img.shields.io/npm/v/@marcusball/flatfile-button-vue.svg?label=npm%20version&color=2EBF6A&style=for-the-badge)](https://www.npmjs.com/@marcusball/flatfile-button-vue)
+[![Minzipped Size](https://img.shields.io/bundlephobia/minzip/@marcusball/flatfile-button-vue?color=794cff&style=for-the-badge)](https://bundlephobia.com/result?p=@marcusball/flatfile-button-vue)
+[![NPM Downloads](https://img.shields.io/npm/dw/@marcusball/flatfile-button-vue.svg?color=8c66ff&style=for-the-badge)](https://www.npmjs.com/@marcusball/flatfile-button-vue)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge&color=794cff)](/LICENSE)
 --
+
+## Fork Details
+
+This is a version of [the official Flatfile button package](https://www.npmjs.com/package/@flatfile/vuejs) to add support for Vue 3.
+This should behave similarly to the original version of the package, except that it has been upgraded to use Vue events
+instead of passing callback functions via props.
+
+```html
+<flatfile-button
+  :token="token"
+  @init="onFlatfileInit"
+  @launch="onFlatfileLaunch"
+  @complete="onFlatfileComplete"
+  @error="onFlatfileError"
+  @close="onFlatfileClose"
+  class="ff-button"
+>
+  Upload to Flatfile!
+</flatfile-button>
+
+<script>
+  import { FlatfileButton } from "@flatfile/vuejs";
+
+  export default {
+    name: "App",
+    components: {
+      FlatfileButton,
+    },
+    data: () => ({
+      token: "Your_Token_You_Received_From_Your_Backend",
+    }),
+    methods: {
+      onInit: function (data) {
+        console.log("onInit");
+        console.log(data);
+      },
+      onUpload: function (data) {
+        console.log("onUpload");
+        console.log(data);
+      },
+      onLaunch: function (data) {
+        console.log("onLaunch");
+        console.log(data);
+      },
+      onClose: function (data) {
+        console.log("onClose");
+        console.log(data);
+      },
+      onComplete: async function (payload) {
+        const data = await payload.data();
+        console.log("onComplete");
+        console.log(data);
+      },
+      onError: function (error) {
+        console.log("onError");
+        console.log(error);
+      },
+    },
+  };
+</script>
+```
+
+## Original Docs:
 
 > NOTE: If you upgrading from previous versions (0.x), v3+ comes with some updates & breaking changes
 
@@ -35,15 +98,8 @@ This will give you access to the `<flatfile-button />` component as well as the 
 Simply add the import to a component where you want to include the Flatfile vuejs adapter via
 
 ```html
-import { FlatfileButton } from '@flatfile/vuejs';
-
-export default {
-  name: 'DemoComponent',
-  components: {
-    FlatfileButton,
-  },
-  // ...
-}
+import { FlatfileButton } from '@flatfile/vuejs'; export default { name:
+'DemoComponent', components: { FlatfileButton, }, // ... }
 ```
 
 Now in your application simply utilize this new `<flatfile-button>` component, but make sure to pass in the 1 required prop, (and/or any optional ones you may need for your application).
@@ -55,22 +111,20 @@ Now in your application simply utilize this new `<flatfile-button>` component, b
 [Read more here](https://flatfile.com/docs/implementing-embeds/) on how to implement a secure token.
 
 ```html
-<flatfile-button :token="token">
-  Upload to Flatfile!
-</flatfile-button>
+<flatfile-button :token="token"> Upload to Flatfile! </flatfile-button>
 
 <script>
-import { FlatfileButton } from '@flatfile/vuejs';
+  import { FlatfileButton } from "@flatfile/vuejs";
 
-export default {
-  name: 'App',
-  components: {
-    FlatfileButton,
-  },
-  data: () => ({
-    token: 'Your_Token_You_Received_From_Your_Backend',    
-  })
-}
+  export default {
+    name: "App",
+    components: {
+      FlatfileButton,
+    },
+    data: () => ({
+      token: "Your_Token_You_Received_From_Your_Backend",
+    }),
+  };
 </script>
 ```
 
@@ -79,57 +133,57 @@ export default {
 Here's an example passing down many of the other optional parameters/methods available to the adapter.
 
 ```html
-<flatfile-button 
+<flatfile-button
   :token="token"
   :onInit="onInit"
   :onUpload="onUpload"
   :onLaunch="onLaunch"
   :onClose="onClose"
   :onComplete="onComplete"
-  :onError="onError" 
+  :onError="onError"
   class="ff-button"
 >
   Upload to Flatfile!
 </flatfile-button>
 
 <script>
-import { FlatfileButton } from '@flatfile/vuejs';
+  import { FlatfileButton } from "@flatfile/vuejs";
 
-export default {
-  name: 'App',
-  components: {
-    FlatfileButton,
-  },
-  data: () => ({
-    token: 'Your_Token_You_Received_From_Your_Backend',
-  }),
-  methods: {
-    onInit: function (data) {
-      console.log('onInit')
-      console.log(data)
+  export default {
+    name: "App",
+    components: {
+      FlatfileButton,
     },
-    onUpload: function (data) {
-      console.log('onUpload')
-      console.log('data')
+    data: () => ({
+      token: "Your_Token_You_Received_From_Your_Backend",
+    }),
+    methods: {
+      onInit: function (data) {
+        console.log("onInit");
+        console.log(data);
+      },
+      onUpload: function (data) {
+        console.log("onUpload");
+        console.log("data");
+      },
+      onLaunch: function (data) {
+        console.log("onLaunch");
+        console.log("data");
+      },
+      onClose: function (data) {
+        console.log("onClose");
+        console.log("data");
+      },
+      onComplete: function (data) {
+        console.log("onComplete");
+        console.log("data");
+      },
+      onError: function (error) {
+        console.log("onError");
+        console.log(error);
+      },
     },
-    onLaunch: function (data) {
-      console.log('onLaunch')
-      console.log('data')
-    },
-    onClose: function (data) {
-      console.log('onClose')
-      console.log('data')
-    },
-    onComplete: function (data) {
-      console.log('onComplete')
-      console.log('data')
-    },
-    onError: function (error) {
-      console.log('onError')
-      console.log(error)
-    },
-  }
-}
+  };
 </script>
 ```
 
@@ -140,29 +194,25 @@ export default {
 You can also pass down `mountUrl` and `apiUrl` to the `<flatfile-button>`.
 
 ```html
-<flatfile-button 
-  :token="token"
-  :mountUrl="mountUrl"
-  :apiUrl="apiUrl"
->
+<flatfile-button :token="token" :mountUrl="mountUrl" :apiUrl="apiUrl">
   Upload to Flatfile!
 </flatfile-button>
 
 <script>
-import { FlatfileButton } from '@flatfile/vuejs';
+  import { FlatfileButton } from "@flatfile/vuejs";
 
-export default {
-  name: 'App',
-  components: {
-    FlatfileButton,
-  },
-  data: () => ({
-    token: 'Your_Token_You_Received_From_Your_Backend',
-    mountUrl: 'mountUrl',
-    apiUrl: '',
-  }),
-  // ... everything else
-}
+  export default {
+    name: "App",
+    components: {
+      FlatfileButton,
+    },
+    data: () => ({
+      token: "Your_Token_You_Received_From_Your_Backend",
+      mountUrl: "mountUrl",
+      apiUrl: "",
+    }),
+    // ... everything else
+  };
 </script>
 ```
 
